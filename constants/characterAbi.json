@@ -1,0 +1,315 @@
+[
+  { "type": "constructor", "payable": false, "inputs": [] },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "Approval",
+    "inputs": [
+      { "type": "address", "name": "owner", "indexed": true },
+      { "type": "address", "name": "approved", "indexed": true },
+      { "type": "uint256", "name": "tokenId", "indexed": true }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "ApprovalForAll",
+    "inputs": [
+      { "type": "address", "name": "owner", "indexed": true },
+      { "type": "address", "name": "operator", "indexed": true },
+      { "type": "bool", "name": "approved", "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "Transfer",
+    "inputs": [
+      { "type": "address", "name": "from", "indexed": true },
+      { "type": "address", "name": "to", "indexed": true },
+      { "type": "uint256", "name": "tokenId", "indexed": true }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "leveled",
+    "inputs": [
+      { "type": "address", "name": "owner", "indexed": true },
+      { "type": "uint256", "name": "level", "indexed": false },
+      { "type": "uint256", "name": "hunter", "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "named",
+    "inputs": [
+      { "type": "address", "name": "owner", "indexed": true },
+      { "type": "uint256", "name": "name", "indexed": false },
+      { "type": "uint256", "name": "hunter", "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "summoned",
+    "inputs": [
+      { "type": "address", "name": "owner", "indexed": true },
+      { "type": "uint256", "name": "hunter", "indexed": false }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "approve",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [
+      { "type": "address", "name": "to" },
+      { "type": "uint256", "name": "tokenId" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "balanceOf",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "address", "name": "owner" }],
+    "outputs": [{ "type": "uint256" }]
+  },
+  {
+    "type": "function",
+    "name": "change_name",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [
+      { "type": "uint256", "name": "_hunter" },
+      { "type": "string", "name": "_name" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "getApproved",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "uint256", "name": "tokenId" }],
+    "outputs": [{ "type": "address" }]
+  },
+  {
+    "type": "function",
+    "name": "hunter_info",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "uint256", "name": "_hunter" }],
+    "outputs": [
+      { "type": "string", "name": "_name" },
+      { "type": "uint256", "name": "_xp" },
+      { "type": "uint256", "name": "_level" }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "isApprovedForAll",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [
+      { "type": "address", "name": "owner" },
+      { "type": "address", "name": "operator" }
+    ],
+    "outputs": [{ "type": "bool" }]
+  },
+  {
+    "type": "function",
+    "name": "level",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "uint256" }],
+    "outputs": [{ "type": "uint256" }]
+  },
+  {
+    "type": "function",
+    "name": "level_up",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "uint256", "name": "_hunter" }],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "minted_address",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "address" }],
+    "outputs": [{ "type": "bool" }]
+  },
+  {
+    "type": "function",
+    "name": "name",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "uint256" }],
+    "outputs": [{ "type": "string" }]
+  },
+  {
+    "type": "function",
+    "name": "name",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [],
+    "outputs": [{ "type": "string" }]
+  },
+  {
+    "type": "function",
+    "name": "ownerOf",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "uint256", "name": "tokenId" }],
+    "outputs": [{ "type": "address" }]
+  },
+  {
+    "type": "function",
+    "name": "safeTransferFrom",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [
+      { "type": "address", "name": "from" },
+      { "type": "address", "name": "to" },
+      { "type": "uint256", "name": "tokenId" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "safeTransferFrom",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [
+      { "type": "address", "name": "from" },
+      { "type": "address", "name": "to" },
+      { "type": "uint256", "name": "tokenId" },
+      { "type": "bytes", "name": "data" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "setApprovalForAll",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [
+      { "type": "address", "name": "operator" },
+      { "type": "bool", "name": "approved" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "spend_xp",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [
+      { "type": "uint256", "name": "_hunter" },
+      { "type": "uint256", "name": "_xp" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "summon",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "supportsInterface",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "bytes4", "name": "interfaceId" }],
+    "outputs": [{ "type": "bool" }]
+  },
+  {
+    "type": "function",
+    "name": "symbol",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [],
+    "outputs": [{ "type": "string" }]
+  },
+  {
+    "type": "function",
+    "name": "tokenURI",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "uint256", "name": "tokenId" }],
+    "outputs": [{ "type": "string" }]
+  },
+  {
+    "type": "function",
+    "name": "transferFrom",
+    "constant": false,
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [
+      { "type": "address", "name": "from" },
+      { "type": "address", "name": "to" },
+      { "type": "uint256", "name": "tokenId" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "xp",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "uint256" }],
+    "outputs": [{ "type": "uint256" }]
+  },
+  {
+    "type": "function",
+    "name": "xp_required",
+    "constant": true,
+    "stateMutability": "pure",
+    "payable": false,
+    "gas": 29000000,
+    "inputs": [{ "type": "uint256", "name": "curent_level" }],
+    "outputs": [{ "type": "uint256", "name": "xp_to_next_level" }]
+  }
+]

@@ -1,4 +1,5 @@
 import "@rainbow-me/rainbowkit/styles.css";
+import "tailwindcss/tailwind.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
@@ -15,7 +16,7 @@ const { chains, provider } = configureChains(
     chain.polygonMumbai,
   ],
   [
-    alchemyProvider({ apiKey: "Vi1AooumhLIgAB0ySq2aLOLWeANXFXLK" }),
+    alchemyProvider({ apiKey: process.env.ALCHEMY_MUMBAI_KEY }),
     publicProvider(),
   ]
 );

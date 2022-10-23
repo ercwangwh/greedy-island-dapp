@@ -6,8 +6,18 @@ import { publicProvider } from "wagmi/providers/public";
 import { AppProps } from "next/app";
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum, chain.hardhat],
-  [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
+  [
+    chain.mainnet,
+    chain.polygon,
+    chain.optimism,
+    chain.arbitrum,
+    chain.hardhat,
+    chain.polygonMumbai,
+  ],
+  [
+    alchemyProvider({ apiKey: "Vi1AooumhLIgAB0ySq2aLOLWeANXFXLK" }),
+    publicProvider(),
+  ]
 );
 const { connectors } = getDefaultWallets({
   appName: "My RainbowKit App",

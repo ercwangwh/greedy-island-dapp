@@ -64,7 +64,6 @@
     "name": "approve",
     "constant": false,
     "payable": false,
-    "gas": 29000000,
     "inputs": [
       { "type": "address", "name": "to" },
       { "type": "uint256", "name": "tokenId" }
@@ -77,7 +76,6 @@
     "constant": true,
     "stateMutability": "view",
     "payable": false,
-    "gas": 29000000,
     "inputs": [{ "type": "address", "name": "owner" }],
     "outputs": [{ "type": "uint256" }]
   },
@@ -86,7 +84,6 @@
     "name": "change_name",
     "constant": false,
     "payable": false,
-    "gas": 29000000,
     "inputs": [
       { "type": "uint256", "name": "_hunter" },
       { "type": "string", "name": "_name" }
@@ -99,7 +96,6 @@
     "constant": true,
     "stateMutability": "view",
     "payable": false,
-    "gas": 29000000,
     "inputs": [{ "type": "uint256", "name": "tokenId" }],
     "outputs": [{ "type": "address" }]
   },
@@ -109,7 +105,6 @@
     "constant": true,
     "stateMutability": "view",
     "payable": false,
-    "gas": 29000000,
     "inputs": [{ "type": "uint256", "name": "_hunter" }],
     "outputs": [
       { "type": "string", "name": "_name" },
@@ -123,7 +118,6 @@
     "constant": true,
     "stateMutability": "view",
     "payable": false,
-    "gas": 29000000,
     "inputs": [
       { "type": "address", "name": "owner" },
       { "type": "address", "name": "operator" }
@@ -136,7 +130,6 @@
     "constant": true,
     "stateMutability": "view",
     "payable": false,
-    "gas": 29000000,
     "inputs": [{ "type": "uint256" }],
     "outputs": [{ "type": "uint256" }]
   },
@@ -145,7 +138,6 @@
     "name": "level_up",
     "constant": false,
     "payable": false,
-    "gas": 29000000,
     "inputs": [{ "type": "uint256", "name": "_hunter" }],
     "outputs": []
   },
@@ -155,7 +147,6 @@
     "constant": true,
     "stateMutability": "view",
     "payable": false,
-    "gas": 29000000,
     "inputs": [{ "type": "address" }],
     "outputs": [{ "type": "bool" }]
   },
@@ -165,7 +156,6 @@
     "constant": true,
     "stateMutability": "view",
     "payable": false,
-    "gas": 29000000,
     "inputs": [{ "type": "uint256" }],
     "outputs": [{ "type": "string" }]
   },
@@ -175,7 +165,6 @@
     "constant": true,
     "stateMutability": "view",
     "payable": false,
-    "gas": 29000000,
     "inputs": [],
     "outputs": [{ "type": "string" }]
   },
@@ -185,7 +174,6 @@
     "constant": true,
     "stateMutability": "view",
     "payable": false,
-    "gas": 29000000,
     "inputs": [{ "type": "uint256", "name": "tokenId" }],
     "outputs": [{ "type": "address" }]
   },
@@ -194,7 +182,6 @@
     "name": "safeTransferFrom",
     "constant": false,
     "payable": false,
-    "gas": 29000000,
     "inputs": [
       { "type": "address", "name": "from" },
       { "type": "address", "name": "to" },
@@ -207,7 +194,6 @@
     "name": "safeTransferFrom",
     "constant": false,
     "payable": false,
-    "gas": 29000000,
     "inputs": [
       { "type": "address", "name": "from" },
       { "type": "address", "name": "to" },
@@ -221,7 +207,6 @@
     "name": "setApprovalForAll",
     "constant": false,
     "payable": false,
-    "gas": 29000000,
     "inputs": [
       { "type": "address", "name": "operator" },
       { "type": "bool", "name": "approved" }
@@ -233,7 +218,6 @@
     "name": "spend_xp",
     "constant": false,
     "payable": false,
-    "gas": 29000000,
     "inputs": [
       { "type": "uint256", "name": "_hunter" },
       { "type": "uint256", "name": "_xp" }
@@ -245,7 +229,6 @@
     "name": "summon",
     "constant": false,
     "payable": false,
-    "gas": 29000000,
     "inputs": [],
     "outputs": []
   },
@@ -255,7 +238,6 @@
     "constant": true,
     "stateMutability": "view",
     "payable": false,
-    "gas": 29000000,
     "inputs": [{ "type": "bytes4", "name": "interfaceId" }],
     "outputs": [{ "type": "bool" }]
   },
@@ -265,7 +247,6 @@
     "constant": true,
     "stateMutability": "view",
     "payable": false,
-    "gas": 29000000,
     "inputs": [],
     "outputs": [{ "type": "string" }]
   },
@@ -275,7 +256,6 @@
     "constant": true,
     "stateMutability": "view",
     "payable": false,
-    "gas": 29000000,
     "inputs": [{ "type": "uint256", "name": "tokenId" }],
     "outputs": [{ "type": "string" }]
   },
@@ -284,7 +264,6 @@
     "name": "transferFrom",
     "constant": false,
     "payable": false,
-    "gas": 29000000,
     "inputs": [
       { "type": "address", "name": "from" },
       { "type": "address", "name": "to" },
@@ -298,7 +277,6 @@
     "constant": true,
     "stateMutability": "view",
     "payable": false,
-    "gas": 29000000,
     "inputs": [{ "type": "uint256" }],
     "outputs": [{ "type": "uint256" }]
   },
@@ -308,7 +286,6 @@
     "constant": true,
     "stateMutability": "pure",
     "payable": false,
-    "gas": 29000000,
     "inputs": [{ "type": "uint256", "name": "curent_level" }],
     "outputs": [{ "type": "uint256", "name": "xp_to_next_level" }]
   }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useContractWrite, usePrepareContractWrite, useAccount } from "wagmi";
-import { contractAddresses, knightAbi } from "../constants";
+import { contractAddressMumbai, knightAbi } from "../constants";
 
 import { Alchemy, Network } from "alchemy-sdk";
 // import { ethers } from "ethers";
@@ -9,10 +9,10 @@ import NFTCard from "./NFTCard";
 // import { config } from "dotenv";
 
 function PlayGround() {
-  const [NFTs, setNFTs] = useState<any>([]);
+  const [NFTs, setNFTs] = useState([]);
 
   const { config } = usePrepareContractWrite({
-    address: contractAddresses[80001].knight,
+    address: contractAddressMumbai.knight,
     // address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
     abi: knightAbi,
     functionName: "safeMint",
@@ -36,7 +36,7 @@ function PlayGround() {
     console.log("fetching NFTs for address:", ownerAddr);
     console.log("...");
 
-    const ownOptions = { contractAddresses: [contractAddresses[80001].knight] };
+    const ownOptions = { contractAddresses: [contractAddressMumbai.knight] };
     const ownNft = await alchemy.nft.getNftsForOwner(address, ownOptions);
     setNFTs(ownNft.ownedNfts);
   }
@@ -65,7 +65,7 @@ function PlayGround() {
       </div>
       <div className="flex flex-wrap gap-y-12 mt-4 w-5/6 gap-x-2 justify-center">
         {NFTs.length &&
-          NFTs.map((nft: any) => {
+          NFTs.map((nft) => {
             return <NFTCard nft={nft}></NFTCard>;
           })}
       </div>

@@ -7,12 +7,17 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 contract ERC721Staking is ReentrancyGuard {
-    // We do this so we can use the safeTransfer function
     using SafeERC20 for IERC20;
 
     // Interfaces for ERC20 and ERC721
     IERC20 public immutable rewardsToken;
     IERC721 public immutable nftCollection;
+
+    // Constructor function to set the rewards token and the NFT collection addresses
+    constructor(IERC721 _nftCollection, IERC20 _rewardsToken) {
+        nftCollection = _nftCollection;
+        rewardsToken = _rewardsToken;
+    }
 
     struct StakedToken {
         address staker;
@@ -41,12 +46,6 @@ contract ERC721Staking is ReentrancyGuard {
     // Mapping of Token Id to staker. Made for the SC to remeber
     // who to send back the ERC721 Token to.
     mapping(uint256 => address) public stakerAddress;
-
-    // Constructor function to set the rewards token and the NFT collection addresses
-    constructor(IERC721 _nftCollection, IERC20 _rewardsToken) {
-        nftCollection = _nftCollection;
-        rewardsToken = _rewardsToken;
-    }
 
     // If address already has ERC721 Token/s staked, calculate the rewards.
     // Increment the amountStaked and map msg.sender to the Token Id of the staked
@@ -144,18 +143,14 @@ contract ERC721Staking is ReentrancyGuard {
         rewardsToken.safeTransfer(msg.sender, rewards);
     }
 
-    // Calculate rewards for param _staker by calculating the time passed
-    // since last update in hours and mulitplying it to ERC721 Tokens Staked
-    // and rewardsPerHour.
-    function calculateRewards(address _staker)
-        internal
-        view
-        returns (uint256 _rewards)
-    {
-        return (((
-            ((block.timestamp - stakers[_staker].timeOfLastUpdate) *
-                stakers[_staker].amountStaked)
-        ) * rewardsPerHour) / 3600);
+    //////////
+    // View //
+    //////////
+
+    function availableRewards(address _staker) public view returns (uint256) {
+        uint256 rewards = calculateRewards(_staker) +
+            stakers[_staker].unclaimedRewards;
+        return rewards;
     }
 
     function getStakedTokens(address _user)
@@ -184,5 +179,23 @@ contract ERC721Staking is ReentrancyGuard {
         else {
             return new StakedToken[](0);
         }
+    }
+
+    /////////////
+    // Internal//
+    /////////////
+
+    // Calculate rewards for param _staker by calculating the time passed
+    // since last update in hours and mulitplying it to ERC721 Tokens Staked
+    // and rewardsPerHour.
+    function calculateRewards(address _staker)
+        internal
+        view
+        returns (uint256 _rewards)
+    {
+        return (((
+            ((block.timestamp - stakers[_staker].timeOfLastUpdate) *
+                stakers[_staker].amountStaked)
+        ) * rewardsPerHour) / 3600);
     }
 }

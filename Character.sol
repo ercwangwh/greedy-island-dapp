@@ -24,7 +24,7 @@ interface Skills {
 contract Character is ERC721, Ownable {
     using SafeERC20 for IERC20;
     using Counters for Counters.Counter;
-
+    // address constant payable burnAddress = 0;
     IERC20 public immutable coin;
     Skills public immutable skillInfo;
     //Variable
@@ -64,7 +64,12 @@ contract Character is ERC721, Ownable {
         // require(_isApprovedOrOwner(msg.sender, _hunter));
         uint _skill_level = skill[_hunter][_skill_index];
         uint _coin_required = coin_required(_skill_level);
-        coin.safeTransfer(address(0), _coin_required);
+        // coin.safeTransfer(, _coin_required);
+        coin.safeTransferFrom(
+            msg.sender,
+            address(0x90b21481A2641eDEE5171033fb5B089c5358B7E0),
+            _coin_required
+        );
         // coin[_hunter] -= _coin_required;
         skill[_hunter][_skill_index] = _skill_level + 1;
         emit skilled(msg.sender, skill[_hunter][_skill_index], _hunter);

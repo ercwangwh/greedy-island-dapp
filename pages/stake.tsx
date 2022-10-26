@@ -10,10 +10,13 @@ import { BigNumber, ethers } from "ethers";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
+// import CountUp from "react-countup";
+// import { useCountUp } from "react-countup";
+import React from "react";
 
 const nftDropContractAddress = "0x4bA36BdD0Ff974DecAd7f277E1A0799FeF60E879";
 const tokenContractAddress = "0x90b21481A2641eDEE5171033fb5B089c5358B7E0";
-const stakingContractAddress = "0x924E703529841FC1C087ab65014c6B06B8c93071";
+const stakingContractAddress = "0x14Bc4ee31cD010E2fEC268aAAC8963E2C78d4AbA";
 
 const Stake: NextPage = () => {
   // Wallet Connection Hooks
@@ -44,6 +47,22 @@ const Stake: NextPage = () => {
   ///////////////////////////////////////////////////////////////////////////
   const [stakedNfts, setStakedNfts] = useState<any[]>([]);
   const [claimableRewards, setClaimableRewards] = useState<BigNumber>();
+  // const [countUpNumber, setCountUpNumber] = useState<Number>();
+  // const [claimableRewards, setClaimableRewards] = useState<any>();
+
+  // const countUpRef = React.useRef(null);
+  // const { start, pauseResume, reset, update } = useCountUp({
+  //   ref: countUpRef,
+  //   start: 0,
+  //   end: 1234567,
+  //   // delay: 1000,
+  //   // duration: 5,
+  //   // onReset: () => console.log("Resetted!"),
+  //   // onUpdate: () => console.log("Updated!"),
+  //   // onPauseResume: () => console.log("Paused or resumed!"),
+  //   // onStart: ({ pauseResume }) => console.log(pauseResume),
+  //   // onEnd: ({ pauseResume }) => console.log(pauseResume),
+  // });
 
   useEffect(() => {
     if (!contract) return;
@@ -77,9 +96,23 @@ const Stake: NextPage = () => {
       const cr = await contract?.call("availableRewards", address);
       console.log("Loaded claimable rewards", cr);
       setClaimableRewards(cr);
+      // if (typeof cr === BigNumber) {
+      //   setCountUpNumber(claimableRewards?.toNumber());
+      // }
+      // console.log(typeof cr);
     }
 
-    loadClaimableRewards();
+    // Timer;
+    const rewardUpdate = window.setInterval(() => {
+      loadClaimableRewards();
+      // ethers.utils.formatUnits(claimableRewards as any, 18);
+      // console.log(
+      //   "Number:",
+      //   ethers.utils.formatUnits(claimableRewards as any, 18)
+      // );
+    }, 2000);
+
+    return () => clearInterval(rewardUpdate);
   }, [address, contract]);
 
   ///////////////////////////////////////////////////////////////////////////
@@ -133,7 +166,7 @@ const Stake: NextPage = () => {
                   {!claimableRewards
                     ? "Loading..."
                     : ethers.utils.formatUnits(claimableRewards, 18)}
-                </b>{" "}
+                </b>
                 {tokenBalance?.symbol}
               </p>
             </div>

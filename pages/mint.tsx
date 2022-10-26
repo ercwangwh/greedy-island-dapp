@@ -8,7 +8,7 @@ const Mint: NextPage = () => {
   const router = useRouter();
   const address = useAddress();
 
-  const characterContractAddress = "0x24CC7F9d5Ea80bdD0AC1E9737bC240fe2E0dbEBB";
+  const characterContractAddress = "0xe52A8d2d1cb213fE8e8F3D4300c3c29D24e74962";
   const { contract, isLoading } = useContract(characterContractAddress);
 
   async function readSkill() {
@@ -51,7 +51,7 @@ const Mint: NextPage = () => {
       <Web3Button
         colorMode="dark"
         accentColor="#5204BF"
-        contractAddress="0x24CC7F9d5Ea80bdD0AC1E9737bC240fe2E0dbEBB"
+        contractAddress="0xe52A8d2d1cb213fE8e8F3D4300c3c29D24e74962"
         action={(contract) => contract.call("summon")}
         onSuccess={() => {
           alert("Character Claimed!");
@@ -68,7 +68,7 @@ const Mint: NextPage = () => {
       <Web3Button
         colorMode="dark"
         accentColor="#5204BF"
-        contractAddress="0x24CC7F9d5Ea80bdD0AC1E9737bC240fe2E0dbEBB"
+        contractAddress="0xe52A8d2d1cb213fE8e8F3D4300c3c29D24e74962"
         action={(contract) => {
           readSkill();
         }}

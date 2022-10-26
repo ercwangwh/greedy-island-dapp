@@ -13,7 +13,7 @@ import styles from "../styles/Home.module.css";
 
 const nftDropContractAddress = "0x4bA36BdD0Ff974DecAd7f277E1A0799FeF60E879";
 const tokenContractAddress = "0x90b21481A2641eDEE5171033fb5B089c5358B7E0";
-const stakingContractAddress = "0x8d88C0ECD0B2e0F9149Da58F163041D26018a6cF";
+const stakingContractAddress = "0x924E703529841FC1C087ab65014c6B06B8c93071";
 
 const Stake: NextPage = () => {
   // Wallet Connection Hooks

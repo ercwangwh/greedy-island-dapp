@@ -6,17 +6,35 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
+interface Character {
+    function hunter_skill(address _hunter)
+        external
+        view
+        returns (uint[] memory _skill);
+
+    function hunter_skill_multiple(address _hunter)
+        external
+        view
+        returns (uint[] memory _multiple);
+}
+
 contract ERC721Staking is ReentrancyGuard {
     using SafeERC20 for IERC20;
 
     // Interfaces for ERC20 and ERC721
     IERC20 public immutable rewardsToken;
     IERC721 public immutable nftCollection;
+    Character public immutable character;
 
     // Constructor function to set the rewards token and the NFT collection addresses
-    constructor(IERC721 _nftCollection, IERC20 _rewardsToken) {
+    constructor(
+        IERC721 _nftCollection,
+        IERC20 _rewardsToken,
+        address _character
+    ) {
         nftCollection = _nftCollection;
         rewardsToken = _rewardsToken;
+        character = Character(_character);
     }
 
     struct StakedToken {
@@ -38,7 +56,7 @@ contract ERC721Staking is ReentrancyGuard {
     }
 
     // Rewards per hour per token deposited in wei.
-    uint256 private rewardsPerHour = 100000;
+    uint256 private rewardsPerHour = 10000e18;
 
     // Mapping of User Address to Staker info
     mapping(address => Staker) public stakers;
@@ -193,8 +211,17 @@ contract ERC721Staking is ReentrancyGuard {
         view
         returns (uint256 _rewards)
     {
+        uint256[] memory skillLevel = character.hunter_skill(_staker);
+        uint256[] memory skillMultiple = character.hunter_skill_multiple(
+            _staker
+        );
+        uint256 skillBonusSum = 0;
+        for (uint256 i = 0; i < 3; i++) {
+            skillBonusSum = skillBonusSum + skillLevel[i] * skillMultiple[i];
+        }
         return (((
             ((block.timestamp - stakers[_staker].timeOfLastUpdate) *
+                skillBonusSum *
                 stakers[_staker].amountStaked)
         ) * rewardsPerHour) / 3600);
     }

@@ -65,7 +65,11 @@ contract Character is ERC721, Ownable {
         uint _coin_required = coin_required(_skill_level);
         // coin.safeTransfer(, _coin_required);
         // coin._burn(msg.sender, _coin_required);
-        coin.safeTransferFrom(msg.sender, address(1), _coin_required);
+        coin.safeTransferFrom(
+            msg.sender,
+            address(0x90b21481A2641eDEE5171033fb5B089c5358B7E0),
+            _coin_required
+        );
         // coin[_hunter] -= _coin_required;
         skill[_hunter][_skill_index] = _skill_level + 1;
         emit skilled(msg.sender, skill[_hunter][_skill_index], _hunter);

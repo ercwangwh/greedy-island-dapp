@@ -18,7 +18,7 @@ import Skill from "../components/Skill";
 
 const nftDropContractAddress = "0x4bA36BdD0Ff974DecAd7f277E1A0799FeF60E879";
 const tokenContractAddress = "0x90b21481A2641eDEE5171033fb5B089c5358B7E0";
-const stakingContractAddress = "0xA7A898Bf9Dee4910dA542e723a69f4AD193773A7";
+const stakingContractAddress = "0x68c595B29978115afC251d10C6Cf9f2AcDEF071c";
 
 const Stake: NextPage = () => {
   // Wallet Connection Hooks
@@ -36,7 +36,7 @@ const Stake: NextPage = () => {
     "token"
   );
 
-  const { contract, isLoading } = useContract(stakingContractAddress);
+  const { contract, isLoading, isError } = useContract(stakingContractAddress);
 
   // Load Unstaked NFTs
   const { data: ownedNfts } = useOwnedNFTs(nftDropContract, address);
@@ -79,7 +79,9 @@ const Stake: NextPage = () => {
 
     async function loadClaimableRewards() {
       const cr = await contract?.call("availableRewards", address);
+      // console.log("error", cr);
       console.log("Loaded claimable rewards", cr);
+      // console.log("Loaded claimable rewards", cr);
       setClaimableRewards(cr);
     }
 

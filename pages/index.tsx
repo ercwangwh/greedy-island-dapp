@@ -22,7 +22,7 @@ const Home: NextPage = () => {
           4. Use the coins to update your skills which can boost your coins
           reward
         </p>
-        <div className={styles.nftBoxGrid}>
+        <div className={styles.indexBoxGrid}>
           <div
             className={styles.optionSelectBox}
             role="button"

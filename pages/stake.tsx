@@ -1,10 +1,10 @@
 import {
   ThirdwebNftMedia,
   useAddress,
-  useMetamask,
   useTokenBalance,
   useOwnedNFTs,
   useContract,
+  useContractRead,
 } from "@thirdweb-dev/react";
 import { BigNumber, ethers } from "ethers";
 import type { NextPage } from "next";
@@ -13,15 +13,17 @@ import styles from "../styles/Home.module.css";
 // import CountUp from "react-countup";
 // import { useCountUp } from "react-countup";
 import React from "react";
+import Header from "../components/Header";
+import Skill from "../components/Skill";
 
 const nftDropContractAddress = "0x4bA36BdD0Ff974DecAd7f277E1A0799FeF60E879";
 const tokenContractAddress = "0x90b21481A2641eDEE5171033fb5B089c5358B7E0";
-const stakingContractAddress = "0x14Bc4ee31cD010E2fEC268aAAC8963E2C78d4AbA";
+const stakingContractAddress = "0xA7A898Bf9Dee4910dA542e723a69f4AD193773A7";
 
 const Stake: NextPage = () => {
   // Wallet Connection Hooks
   const address = useAddress();
-  const connectWithMetamask = useMetamask();
+  // const connectWithMetamask = useMetamask();
 
   // Contract Hooks
   const { contract: nftDropContract } = useContract(
@@ -43,26 +45,9 @@ const Stake: NextPage = () => {
   const { data: tokenBalance } = useTokenBalance(tokenContract, address);
 
   ///////////////////////////////////////////////////////////////////////////
-  // Custom contract functions
-  ///////////////////////////////////////////////////////////////////////////
   const [stakedNfts, setStakedNfts] = useState<any[]>([]);
+  // const [skills, setSkills] = useState<any[]>([]);
   const [claimableRewards, setClaimableRewards] = useState<BigNumber>();
-  // const [countUpNumber, setCountUpNumber] = useState<Number>();
-  // const [claimableRewards, setClaimableRewards] = useState<any>();
-
-  // const countUpRef = React.useRef(null);
-  // const { start, pauseResume, reset, update } = useCountUp({
-  //   ref: countUpRef,
-  //   start: 0,
-  //   end: 1234567,
-  //   // delay: 1000,
-  //   // duration: 5,
-  //   // onReset: () => console.log("Resetted!"),
-  //   // onUpdate: () => console.log("Updated!"),
-  //   // onPauseResume: () => console.log("Paused or resumed!"),
-  //   // onStart: ({ pauseResume }) => console.log(pauseResume),
-  //   // onEnd: ({ pauseResume }) => console.log(pauseResume),
-  // });
 
   useEffect(() => {
     if (!contract) return;
@@ -96,20 +81,11 @@ const Stake: NextPage = () => {
       const cr = await contract?.call("availableRewards", address);
       console.log("Loaded claimable rewards", cr);
       setClaimableRewards(cr);
-      // if (typeof cr === BigNumber) {
-      //   setCountUpNumber(claimableRewards?.toNumber());
-      // }
-      // console.log(typeof cr);
     }
 
     // Timer;
     const rewardUpdate = window.setInterval(() => {
       loadClaimableRewards();
-      // ethers.utils.formatUnits(claimableRewards as any, 18);
-      // console.log(
-      //   "Number:",
-      //   ethers.utils.formatUnits(claimableRewards as any, 18)
-      // );
     }, 2000);
 
     return () => clearInterval(rewardUpdate);
@@ -146,18 +122,16 @@ const Stake: NextPage = () => {
 
   return (
     <div className={styles.container}>
+      <Header></Header>
       <h1 className={styles.h1}>Stake Your NFTs</h1>
 
       <hr className={`${styles.divider} ${styles.spacerTop}`} />
 
       {!address ? (
-        <button className={styles.mainButton} onClick={connectWithMetamask}>
-          Connect Wallet
-        </button>
+        <h2>You Need Connect Your Wallet</h2>
       ) : (
         <>
           <h2>Your Tokens</h2>
-
           <div className={styles.tokenGrid}>
             <div className={styles.tokenItem}>
               <h3 className={styles.tokenLabel}>Claimable Rewards</h3>
@@ -177,13 +151,21 @@ const Stake: NextPage = () => {
               </p>
             </div>
           </div>
-
           <button
             className={`${styles.mainButton} ${styles.spacerTop}`}
             onClick={() => claimRewards()}
           >
             Claim Rewards
           </button>
+
+          <hr className={`${styles.divider} ${styles.spacerTop}`} />
+
+          <h2>Your Skills</h2>
+          <div className={styles.skillBoxGrid}>
+            <Skill skillId={0}></Skill>
+            <Skill skillId={1}></Skill>
+            <Skill skillId={2}></Skill>
+          </div>
 
           <hr className={`${styles.divider} ${styles.spacerTop}`} />
 
@@ -209,7 +191,6 @@ const Stake: NextPage = () => {
           <hr className={`${styles.divider} ${styles.spacerTop}`} />
 
           <h2>Your Unstaked NFTs</h2>
-
           <div className={styles.nftBoxGrid}>
             {ownedNfts?.map((nft) => (
               <div className={styles.nftBox} key={nft.metadata.id.toString()}>

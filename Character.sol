@@ -49,15 +49,14 @@ contract Character is ERC721, Ownable {
 
     function summon() external {
         require(minted_address[msg.sender] == false, "Already summoned");
-
+        _tokenIdCounter.increment();
         uint _next_hunter = _tokenIdCounter.current();
         name[_next_hunter] = Strings.toHexString(msg.sender);
-        skill[_next_hunter] = [0, 0, 0];
+        skill[_next_hunter] = [1, 0, 0];
         minted_address[msg.sender] = true;
         address_tokenId[msg.sender] = _next_hunter;
         _safeMint(msg.sender, _next_hunter);
         emit summoned(msg.sender, _next_hunter);
-        _tokenIdCounter.increment();
     }
 
     function skill_up(uint _hunter, uint _skill_index) external onlyOwner {
@@ -65,11 +64,8 @@ contract Character is ERC721, Ownable {
         uint _skill_level = skill[_hunter][_skill_index];
         uint _coin_required = coin_required(_skill_level);
         // coin.safeTransfer(, _coin_required);
-        coin.safeTransferFrom(
-            msg.sender,
-            address(0x90b21481A2641eDEE5171033fb5B089c5358B7E0),
-            _coin_required
-        );
+        // coin._burn(msg.sender, _coin_required);
+        coin.safeTransferFrom(msg.sender, address(1), _coin_required);
         // coin[_hunter] -= _coin_required;
         skill[_hunter][_skill_index] = _skill_level + 1;
         emit skilled(msg.sender, skill[_hunter][_skill_index], _hunter);

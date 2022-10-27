@@ -11,7 +11,7 @@ const Character: NextPage = () => {
   const address = useAddress();
   //   const [info, setInfo] = useState<any>([]);
 
-  const characterContractAddress = "0xe52A8d2d1cb213fE8e8F3D4300c3c29D24e74962";
+  const characterContractAddress = "0x08fD4516920dA451CE12944495317C3DA32e9Ba8";
   //   const skillsContractAddress = "0xc8b198A641F0fa6A32600E49129d9F713249De24";
   const { contract: characterContract } = useContract(characterContractAddress);
   //   const { contract: skillsContract } = useContract(skillsContractAddress);
@@ -52,7 +52,7 @@ const Character: NextPage = () => {
       <Web3Button
         colorMode="dark"
         accentColor="#5204BF"
-        contractAddress="0xe52A8d2d1cb213fE8e8F3D4300c3c29D24e74962"
+        contractAddress="0x08fD4516920dA451CE12944495317C3DA32e9Ba8"
         action={(contract) => contract.call("summon")}
         onSuccess={() => {
           alert("Character Claimed!");

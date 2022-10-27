@@ -293,6 +293,26 @@
   min-height: 200px;
 }
 
+.skillBoxGrid {
+  width: 1200px;
+  max-width: 95vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2%;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.skillBox {
+  border-radius: 16px;
+  border: 1px solid #ccc;
+  width: 100%;
+  min-height: 100px;
+  padding: 12px;
+}
+
 .optionSelectBox {
   border-radius: 16px;
   border: 1px solid #ccc;

@@ -13,16 +13,15 @@ import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 // import CountUp from "react-countup";
 // import { useCountUp } from "react-countup";
-import React from "react";
+// import React from "react";
 import Header from "../components/Header";
 import Skill from "../components/Skill";
 
-const nftDropContractAddress = "0x4bA36BdD0Ff974DecAd7f277E1A0799FeF60E879";
-const tokenContractAddress = "0x90b21481A2641eDEE5171033fb5B089c5358B7E0";
-const stakingContractAddress = "0xb9850F391e243146810903aFD75a543C24216ab1";
-const characterContractAddress = "0x39a1E12B3F71E0607c17057a8B0e2D1C2A4D62c6";
-
 const Stake: NextPage = () => {
+  const nftDropContractAddress = "0x4bA36BdD0Ff974DecAd7f277E1A0799FeF60E879";
+  const tokenContractAddress = "0x90b21481A2641eDEE5171033fb5B089c5358B7E0";
+  const stakingContractAddress = "0x74aF7cf48A959BB7c70706ab998C1B540Dd6FFA9";
+  const characterContractAddress = "0x70455B3C7c4DD4927605fD06C4Df12D80Fe8f727";
   // Wallet Connection Hooks
   const address = useAddress();
   // const connectWithMetamask = useMetamask();
@@ -120,11 +119,21 @@ const Stake: NextPage = () => {
     // If not approved, request approval
     if (!isApproved) {
       await nftDropContract?.setApprovalForAll(stakingContractAddress, true);
-      // await nftDropContract?.call(
-      //   "setApprovalForAll",
-      //   stakingContractAddress,
-      //   true
-      // );
+    }
+    const stake = await contract?.call("stake", id);
+  }
+
+  async function upgradeSkill(id: string) {
+    if (!address || characterBalance <= 0) return;
+
+    const data = await tokenContract?.allowance(characterContractAddress);
+    console.log(data?.value);
+    // If not approved, request approval
+    if (data?.value > 0) {
+      await tokenContract?.setAllowance(
+        characterContractAddress,
+        "999999999999999999999999999999999999999999999999999999999"
+      );
     }
     const stake = await contract?.call("stake", id);
   }

@@ -11,7 +11,7 @@ const Character: NextPage = () => {
   const address = useAddress();
   //   const [info, setInfo] = useState<any>([]);
 
-  const characterContractAddress = "0x39a1E12B3F71E0607c17057a8B0e2D1C2A4D62c6";
+  const characterContractAddress = "0x70455B3C7c4DD4927605fD06C4Df12D80Fe8f727";
   //   const skillsContractAddress = "0xc8b198A641F0fa6A32600E49129d9F713249De24";
   const { contract: characterContract } = useContract(characterContractAddress);
   //   const { contract: skillsContract } = useContract(skillsContractAddress);
@@ -24,7 +24,8 @@ const Character: NextPage = () => {
   } = useContractRead(characterContract, "address_tokenId", address);
   //   const level_value = useContractRead(contract,)contract?.call("address_tokenId", address);
 
-  console.log(tokenIDisError, tokenIDisSuccess, address);
+  // console.log(tokenIDisError, tokenIDisSuccess, address);
+
   const {
     data: nameData,
     isError: nameIsError,
@@ -32,6 +33,7 @@ const Character: NextPage = () => {
     isSuccess: nameIsSuccess,
   } = useContractRead(characterContract, "name", tokenIdData);
 
+  // console.log(characterContract?.abi);
   //   const {
   //     data: skillIdData,
   //     isError: skillError,

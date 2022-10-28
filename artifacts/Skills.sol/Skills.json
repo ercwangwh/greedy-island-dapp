@@ -156,27 +156,27 @@
     },
     "deployedBytecode": {
       "functionDebugData": {
-        "@fireball_460": {
+        "@fireball_488": {
           "entryPoint": null,
-          "id": 460,
+          "id": 488,
           "parameterSlots": 0,
           "returnSlots": 5
         },
-        "@fireblast_426": {
+        "@fireblast_454": {
           "entryPoint": null,
-          "id": 426,
+          "id": 454,
           "parameterSlots": 0,
           "returnSlots": 5
         },
-        "@pyroblast_494": {
+        "@pyroblast_522": {
           "entryPoint": null,
-          "id": 494,
+          "id": 522,
           "parameterSlots": 0,
           "returnSlots": 5
         },
-        "@skill_by_id_392": {
+        "@skill_by_id_420": {
           "entryPoint": 445,
-          "id": 392,
+          "id": 420,
           "parameterSlots": 1,
           "returnSlots": 5
         },

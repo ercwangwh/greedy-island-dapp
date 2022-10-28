@@ -65,7 +65,10 @@ contract Character is ERC721, Ownable {
         uint _coin_required = coin_required(_skill_level);
         // coin.safeTransfer(, _coin_required);
         // coin._burn(msg.sender, _coin_required);
-        coin.safeTransferFrom(
+        // msg.sender.transfer
+        // coin.transferFrom(from, to, amount);
+
+        safeTransferFrom(
             msg.sender,
             address(0x90b21481A2641eDEE5171033fb5B089c5358B7E0),
             _coin_required
@@ -111,5 +114,14 @@ contract Character is ERC721, Ownable {
             (, , , , uint multiple) = skillInfo.skill_by_id(i);
             _multiple[i] = multiple;
         }
+    }
+
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal override(ERC721) {
+        require(from == address(0), "Token can't transfer");
+        super._beforeTokenTransfer(from, to, tokenId);
     }
 }

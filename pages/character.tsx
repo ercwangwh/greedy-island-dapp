@@ -11,7 +11,7 @@ const Character: NextPage = () => {
   const address = useAddress();
   //   const [info, setInfo] = useState<any>([]);
 
-  const characterContractAddress = "0x2C4ddEBe6DA56b5bff0C42479b66Ba5B918E4E51";
+  const characterContractAddress = "0x39a1E12B3F71E0607c17057a8B0e2D1C2A4D62c6";
   //   const skillsContractAddress = "0xc8b198A641F0fa6A32600E49129d9F713249De24";
   const { contract: characterContract } = useContract(characterContractAddress);
   //   const { contract: skillsContract } = useContract(skillsContractAddress);

@@ -18,7 +18,7 @@ import Skill from "../components/Skill";
 
 const nftDropContractAddress = "0x4bA36BdD0Ff974DecAd7f277E1A0799FeF60E879";
 const tokenContractAddress = "0x90b21481A2641eDEE5171033fb5B089c5358B7E0";
-const stakingContractAddress = "0x68c595B29978115afC251d10C6Cf9f2AcDEF071c";
+const stakingContractAddress = "0xb9850F391e243146810903aFD75a543C24216ab1";
 
 const Stake: NextPage = () => {
   // Wallet Connection Hooks
@@ -88,7 +88,7 @@ const Stake: NextPage = () => {
     // Timer;
     const rewardUpdate = window.setInterval(() => {
       loadClaimableRewards();
-    }, 2000);
+    }, 1000);
 
     return () => clearInterval(rewardUpdate);
   }, [address, contract]);

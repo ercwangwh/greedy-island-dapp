@@ -47,7 +47,7 @@ const Mint: NextPage = () => {
         action={(contract) => contract.erc721.claim(1)}
         onSuccess={() => {
           alert("NFT Claimed!");
-          router.push(`/stake`);
+          // router.push(`/stake`);
         }}
         onError={(error) => {
           console.error(error);

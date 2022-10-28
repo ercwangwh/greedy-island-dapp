@@ -128,8 +128,14 @@
   cursor: pointer;
   text-align: center;
   padding: 5px;
-  color: #fff;
+  background: #000000;
+  /* background-image: linear-gradient(to left, #000000 0%, #696767 100%); */
+  color: rgb(255, 255, 255);
   font-weight: 600;
+  border-radius: 0.5em;
+  border-style: none;
+  height: 50px;
+  min-width: 100px;
 }
 
 .mainButton {
@@ -162,6 +168,11 @@
 
 .mainButton:hover {
   opacity: 0.8;
+}
+
+.secondaryButton:hover {
+  background: #262627;
+  /* opacity: 0.8; */
 }
 
 .ourCollection {

@@ -4,6 +4,7 @@ import {
   useTokenBalance,
   useOwnedNFTs,
   useContract,
+  useBalance,
   useContractRead,
 } from "@thirdweb-dev/react";
 import { BigNumber, ethers } from "ethers";
@@ -19,6 +20,7 @@ import Skill from "../components/Skill";
 const nftDropContractAddress = "0x4bA36BdD0Ff974DecAd7f277E1A0799FeF60E879";
 const tokenContractAddress = "0x90b21481A2641eDEE5171033fb5B089c5358B7E0";
 const stakingContractAddress = "0xb9850F391e243146810903aFD75a543C24216ab1";
+const characterContractAddress = "0x39a1E12B3F71E0607c17057a8B0e2D1C2A4D62c6";
 
 const Stake: NextPage = () => {
   // Wallet Connection Hooks
@@ -37,6 +39,17 @@ const Stake: NextPage = () => {
   );
 
   const { contract, isLoading, isError } = useContract(stakingContractAddress);
+  const { contract: characterContract } = useContract(characterContractAddress);
+  const {
+    data: characterBalance,
+    // isError: tokenIDisError,
+    // // isLoading: tokenIDisLoading,
+    // isSuccess: tokenIDisSuccess,
+  } = useContractRead(characterContract, "balanceOf", address);
+
+  // const charcterBalance = useBalance(characterContractAddress);
+  // cosnt {value:BigNumber} = useBalance(characterContractAddress);
+  // const { contract: characterContract } = useContract(characterContractAddress);
 
   // Load Unstaked NFTs
   const { data: ownedNfts } = useOwnedNFTs(nftDropContract, address);
@@ -66,7 +79,7 @@ const Stake: NextPage = () => {
       );
 
       setStakedNfts(stakedNfts);
-      console.log("setStakedNfts", stakedNfts);
+      // console.log("setStakedNfts", stakedNfts);
     }
 
     if (address) {
@@ -80,32 +93,38 @@ const Stake: NextPage = () => {
     async function loadClaimableRewards() {
       const cr = await contract?.call("availableRewards", address);
       // console.log("error", cr);
-      console.log("Loaded claimable rewards", cr);
+      // console.log("Loaded claimable rewards", cr);
       // console.log("Loaded claimable rewards", cr);
       setClaimableRewards(cr);
     }
-
     // Timer;
     const rewardUpdate = window.setInterval(() => {
-      loadClaimableRewards();
+      if (characterBalance > 0) loadClaimableRewards();
     }, 1000);
-
     return () => clearInterval(rewardUpdate);
-  }, [address, contract]);
+  }, [address, contract, characterBalance]);
+
+  // console.log(characterBalance > 0);
 
   ///////////////////////////////////////////////////////////////////////////
   // Write Functions
   ///////////////////////////////////////////////////////////////////////////
   async function stakeNft(id: string) {
-    if (!address) return;
+    if (!address || characterBalance <= 0) return;
 
     const isApproved = await nftDropContract?.isApproved(
       address,
       stakingContractAddress
     );
+    console.log(isApproved);
     // If not approved, request approval
     if (!isApproved) {
       await nftDropContract?.setApprovalForAll(stakingContractAddress, true);
+      // await nftDropContract?.call(
+      //   "setApprovalForAll",
+      //   stakingContractAddress,
+      //   true
+      // );
     }
     const stake = await contract?.call("stake", id);
   }
@@ -122,6 +141,17 @@ const Stake: NextPage = () => {
     return <div>Loading</div>;
   }
 
+  if (!address || !(characterBalance > 0)) {
+    return (
+      <div className={styles.container}>
+        <Header></Header>
+        <h1 className={styles.h1}>
+          Please connect your wallet and claim a character
+        </h1>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
       <Header></Header>
@@ -129,89 +159,85 @@ const Stake: NextPage = () => {
 
       <hr className={`${styles.divider} ${styles.spacerTop}`} />
 
-      {!address ? (
-        <h2>You Need Connect Your Wallet</h2>
-      ) : (
-        <>
-          <h2>Your Tokens</h2>
-          <div className={styles.tokenGrid}>
-            <div className={styles.tokenItem}>
-              <h3 className={styles.tokenLabel}>Claimable Rewards</h3>
-              <p className={styles.tokenValue}>
-                <b>
-                  {!claimableRewards
-                    ? "Loading..."
-                    : ethers.utils.formatUnits(claimableRewards, 18)}
-                </b>
-                {tokenBalance?.symbol}
-              </p>
+      <>
+        <h2>Your Tokens</h2>
+        <div className={styles.tokenGrid}>
+          <div className={styles.tokenItem}>
+            <h3 className={styles.tokenLabel}>Claimable Rewards</h3>
+            <p className={styles.tokenValue}>
+              <b>
+                {!claimableRewards
+                  ? "Loading..."
+                  : ethers.utils.formatUnits(claimableRewards, 18)}
+              </b>
+              {tokenBalance?.symbol}
+            </p>
+          </div>
+          <div className={styles.tokenItem}>
+            <h3 className={styles.tokenLabel}>Current Balance</h3>
+            <p className={styles.tokenValue}>
+              <b>{tokenBalance?.displayValue}</b> {tokenBalance?.symbol}
+            </p>
+          </div>
+        </div>
+        <button
+          className={`${styles.mainButton} ${styles.spacerTop}`}
+          onClick={() => claimRewards()}
+        >
+          Claim Rewards
+        </button>
+
+        <hr className={`${styles.divider} ${styles.spacerTop}`} />
+
+        <h2>Your Skills</h2>
+        <div className={styles.skillBoxGrid}>
+          <Skill skillId={0}></Skill>
+          <Skill skillId={1}></Skill>
+          <Skill skillId={2}></Skill>
+        </div>
+
+        <hr className={`${styles.divider} ${styles.spacerTop}`} />
+
+        <h2>Your Staked NFTs</h2>
+        <div className={styles.nftBoxGrid}>
+          {stakedNfts?.map((nft) => (
+            <div className={styles.nftBox} key={nft.metadata.id.toString()}>
+              <ThirdwebNftMedia
+                metadata={nft.metadata}
+                className={styles.nftMedia}
+              />
+              <h3>{nft.metadata.name}</h3>
+              <button
+                className={`${styles.mainButton} ${styles.spacerBottom}`}
+                onClick={() => withdraw(nft.metadata.id)}
+              >
+                Withdraw
+              </button>
             </div>
-            <div className={styles.tokenItem}>
-              <h3 className={styles.tokenLabel}>Current Balance</h3>
-              <p className={styles.tokenValue}>
-                <b>{tokenBalance?.displayValue}</b> {tokenBalance?.symbol}
-              </p>
+          ))}
+        </div>
+
+        <hr className={`${styles.divider} ${styles.spacerTop}`} />
+
+        <h2>Your Unstaked NFTs</h2>
+        <div className={styles.nftBoxGrid}>
+          {ownedNfts?.map((nft) => (
+            <div className={styles.nftBox} key={nft.metadata.id.toString()}>
+              <ThirdwebNftMedia
+                metadata={nft.metadata}
+                className={styles.nftMedia}
+              />
+              <h3>{nft.metadata.name}</h3>
+              <button
+                className={`${styles.mainButton} ${styles.spacerBottom}`}
+                onClick={() => stakeNft(nft.metadata.id)}
+              >
+                Stake
+              </button>
             </div>
-          </div>
-          <button
-            className={`${styles.mainButton} ${styles.spacerTop}`}
-            onClick={() => claimRewards()}
-          >
-            Claim Rewards
-          </button>
-
-          <hr className={`${styles.divider} ${styles.spacerTop}`} />
-
-          <h2>Your Skills</h2>
-          <div className={styles.skillBoxGrid}>
-            <Skill skillId={0}></Skill>
-            <Skill skillId={1}></Skill>
-            <Skill skillId={2}></Skill>
-          </div>
-
-          <hr className={`${styles.divider} ${styles.spacerTop}`} />
-
-          <h2>Your Staked NFTs</h2>
-          <div className={styles.nftBoxGrid}>
-            {stakedNfts?.map((nft) => (
-              <div className={styles.nftBox} key={nft.metadata.id.toString()}>
-                <ThirdwebNftMedia
-                  metadata={nft.metadata}
-                  className={styles.nftMedia}
-                />
-                <h3>{nft.metadata.name}</h3>
-                <button
-                  className={`${styles.mainButton} ${styles.spacerBottom}`}
-                  onClick={() => withdraw(nft.metadata.id)}
-                >
-                  Withdraw
-                </button>
-              </div>
-            ))}
-          </div>
-
-          <hr className={`${styles.divider} ${styles.spacerTop}`} />
-
-          <h2>Your Unstaked NFTs</h2>
-          <div className={styles.nftBoxGrid}>
-            {ownedNfts?.map((nft) => (
-              <div className={styles.nftBox} key={nft.metadata.id.toString()}>
-                <ThirdwebNftMedia
-                  metadata={nft.metadata}
-                  className={styles.nftMedia}
-                />
-                <h3>{nft.metadata.name}</h3>
-                <button
-                  className={`${styles.mainButton} ${styles.spacerBottom}`}
-                  onClick={() => stakeNft(nft.metadata.id)}
-                >
-                  Stake
-                </button>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
+          ))}
+        </div>
+      </>
     </div>
   );
 };

@@ -59,7 +59,8 @@ contract Character is ERC721, Ownable {
         emit summoned(msg.sender, _next_hunter);
     }
 
-    function skill_up(uint _hunter, uint _skill_index) external onlyOwner {
+    function skill_up(uint _hunter, uint _skill_index) external {
+        require(msg.sender == ownerOf(_hunter), "Not Character Owner");
         // require(_isApprovedOrOwner(msg.sender, _hunter));
         uint _skill_level = skill[_hunter][_skill_index];
         uint _coin_required = coin_required(_skill_level);
@@ -78,7 +79,8 @@ contract Character is ERC721, Ownable {
         emit skilled(msg.sender, skill[_hunter][_skill_index], _hunter);
     }
 
-    function change_name(uint _hunter, string memory _name) external onlyOwner {
+    function change_name(uint _hunter, string memory _name) external {
+        require(msg.sender == ownerOf(_hunter), "Not Character Owner");
         // require(_isApprovedOrOwner(msg.sender, _hunter));
         name[_hunter] = _name;
         emit named(msg.sender, _name, _hunter);

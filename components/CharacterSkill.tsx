@@ -52,7 +52,7 @@ function CharacterSkill({ skillId, skillMultiple }: Props) {
         <>
           <p>
             Multiple:{" "}
-            {Number(skillMultiple) * Number(levelData[String(skillId)])} X
+            {Number(skillMultiple) * Number(levelData[String(skillId)])} x
           </p>
           <p>Level: {String(levelData[String(skillId)])}</p>
           <p>

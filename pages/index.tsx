@@ -28,7 +28,7 @@ const Home: NextPage = () => {
             onClick={() => router.push(`/character`)}
           >
             {/* Mint Character */}
-            <img src={`/icons/drop.webp`} alt="drop" />
+            {/* <img src={`/icons/drop.webp`} alt="drop" /> */}
             <h2 className={styles.selectBoxTitle}>Mint Character</h2>
             <p className={styles.selectBoxDescription}>
               Use the Character Contract to claim a Character NFT.
@@ -40,7 +40,7 @@ const Home: NextPage = () => {
             onClick={() => router.push(`/mint`)}
           >
             {/* Mint a new NFT */}
-            <img src={`/icons/drop.webp`} alt="drop" />
+            {/* <img src={`/icons/drop.webp`} alt="drop" /> */}
             <h2 className={styles.selectBoxTitle}>NFT Drop Faucet</h2>
             <p className={styles.selectBoxDescription}>
               Use the NFT Drop Contract to claim a test NFT from the collection.
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
             onClick={() => router.push(`/stake`)}
           >
             {/* Staking an NFT */}
-            <img src={`/icons/token.webp`} alt="drop" />
+            {/* <img src={`/icons/token.webp`} alt="drop" /> */}
             <h2 className={styles.selectBoxTitle}>Stake Your NFTs</h2>
             <p className={styles.selectBoxDescription}>
               Use the staking contract to stake your NFTs, and earn coins from

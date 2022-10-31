@@ -12,8 +12,8 @@ function CharacterSkill({ skillId, skillMultiple }: Props) {
   const address = useAddress();
   const [levelCoin, setLevelCoin] = useState<BigNumber>();
 
-  const characterContractAddress = "0x70455B3C7c4DD4927605fD06C4Df12D80Fe8f727";
-  const tokenContractAddress = "0x90b21481A2641eDEE5171033fb5B089c5358B7E0";
+  const characterContractAddress = "0x9f01B1954fa2B7Eb423e49332196DB2c3c8DBc2f";
+  const tokenContractAddress = "0x0e5535Afa90cBDbce42C454648020B0ceCd2C0F3";
 
   const { contract: characterContract } = useContract(characterContractAddress);
   const { contract: tokenContract } = useContract(
@@ -60,7 +60,7 @@ function CharacterSkill({ skillId, skillMultiple }: Props) {
     const data = await tokenContract?.allowance(characterContractAddress);
     console.log(data?.value);
     // If not approved, request approval
-    if (String(data?.value)) {
+    if (data?.value.isZero()) {
       await tokenContract?.setAllowance(
         characterContractAddress,
         "999999999999999999999999999999999999999999999999999999999"

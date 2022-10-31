@@ -2,14 +2,13 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
 import { ConnectWallet } from "@thirdweb-dev/react";
-import Header from "../components/Header";
+// import Header from "../components/Header";
 
 const Home: NextPage = () => {
   const router = useRouter();
 
   return (
     <div>
-      <Header></Header>
       <div className={styles.container}>
         {/* Top Section */}
         <h1 className={styles.h1}>

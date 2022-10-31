@@ -17,7 +17,7 @@ type Props = {
 function Skill({ skillId }: Props) {
   const address = useAddress();
 
-  const skillsContractAddress = "0xc8b198A641F0fa6A32600E49129d9F713249De24";
+  const skillsContractAddress = "0x3A44Cd6ae29b0F24A7fdCD78A1aA2011679b69BB";
   // const characterContractAddress = "0x39a1E12B3F71E0607c17057a8B0e2D1C2A4D62c6";
   // const coinContractAddress = "0x90b21481A2641eDEE5171033fb5B089c5358B7E0";
 

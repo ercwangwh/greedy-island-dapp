@@ -6,22 +6,21 @@ import {
   useContract,
   useBalance,
   useContractRead,
+  Web3Button,
 } from "@thirdweb-dev/react";
 import { BigNumber, ethers } from "ethers";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
-// import CountUp from "react-countup";
-// import { useCountUp } from "react-countup";
-// import React from "react";
-import Header from "../components/Header";
+
 import Skill from "../components/Skill";
+// import { useState } from "react";
 
 const Stake: NextPage = () => {
-  const nftDropContractAddress = "0x4bA36BdD0Ff974DecAd7f277E1A0799FeF60E879";
-  const tokenContractAddress = "0x90b21481A2641eDEE5171033fb5B089c5358B7E0";
-  const stakingContractAddress = "0x74aF7cf48A959BB7c70706ab998C1B540Dd6FFA9";
-  const characterContractAddress = "0x70455B3C7c4DD4927605fD06C4Df12D80Fe8f727";
+  const nftDropContractAddress = "0xDA498DEf1297428980CE264dFBCaC56fE0EB4389";
+  const tokenContractAddress = "0x0e5535Afa90cBDbce42C454648020B0ceCd2C0F3";
+  const stakingContractAddress = "0xfF82E1Fc3CE87b4e9Ff167260CF3fC8145c16C00";
+  const characterContractAddress = "0x9f01B1954fa2B7Eb423e49332196DB2c3c8DBc2f";
   // Wallet Connection Hooks
   const address = useAddress();
   // const connectWithMetamask = useMetamask();
@@ -37,8 +36,11 @@ const Stake: NextPage = () => {
     "token"
   );
 
-  const { contract, isLoading, isError } = useContract(stakingContractAddress);
-  const { contract: characterContract } = useContract(characterContractAddress);
+  const { contract, isLoading: stakeIsLoading } = useContract(
+    stakingContractAddress
+  );
+  const { contract: characterContract, isLoading: characterIsLoading } =
+    useContract(characterContractAddress);
   const {
     data: characterBalance,
     // isError: tokenIDisError,
@@ -58,6 +60,7 @@ const Stake: NextPage = () => {
 
   ///////////////////////////////////////////////////////////////////////////
   const [stakedNfts, setStakedNfts] = useState<any[]>([]);
+  // const [isStaking, setIsStaking] = useState<boolean>(false);
   // const [skills, setSkills] = useState<any[]>([]);
   const [claimableRewards, setClaimableRewards] = useState<BigNumber>();
 
@@ -84,16 +87,13 @@ const Stake: NextPage = () => {
     if (address) {
       loadStakedNfts();
     }
-  }, [address, contract, nftDropContract]);
+  }, [address, contract, ownedNfts]);
 
   useEffect(() => {
     if (!contract || !address) return;
 
     async function loadClaimableRewards() {
       const cr = await contract?.call("availableRewards", address);
-      // console.log("error", cr);
-      // console.log("Loaded claimable rewards", cr);
-      // console.log("Loaded claimable rewards", cr);
       setClaimableRewards(cr);
     }
     // Timer;
@@ -121,21 +121,7 @@ const Stake: NextPage = () => {
       await nftDropContract?.setApprovalForAll(stakingContractAddress, true);
     }
     const stake = await contract?.call("stake", id);
-  }
-
-  async function upgradeSkill(id: string) {
-    if (!address || characterBalance <= 0) return;
-
-    const data = await tokenContract?.allowance(characterContractAddress);
-    console.log(data?.value);
-    // If not approved, request approval
-    if (data?.value > 0) {
-      await tokenContract?.setAllowance(
-        characterContractAddress,
-        "999999999999999999999999999999999999999999999999999999999"
-      );
-    }
-    const stake = await contract?.call("stake", id);
+    // setIsStaking(true);
   }
 
   async function withdraw(id: BigNumber) {
@@ -146,14 +132,13 @@ const Stake: NextPage = () => {
     const claim = await contract?.call("claimRewards");
   }
 
-  if (isLoading) {
+  if (stakeIsLoading && characterIsLoading) {
     return <div>Loading</div>;
   }
 
   if (!address || !(characterBalance > 0)) {
     return (
       <div className={styles.container}>
-        <Header></Header>
         <h1 className={styles.h1}>
           Please connect your wallet and claim a character
         </h1>
@@ -163,7 +148,6 @@ const Stake: NextPage = () => {
 
   return (
     <div className={styles.container}>
-      <Header></Header>
       <h1 className={styles.h1}>Stake Your NFTs</h1>
 
       <hr className={`${styles.divider} ${styles.spacerTop}`} />
@@ -219,6 +203,7 @@ const Stake: NextPage = () => {
               <button
                 className={`${styles.mainButton} ${styles.spacerBottom}`}
                 onClick={() => withdraw(nft.metadata.id)}
+                // disabled={!isStaking}
               >
                 Withdraw
               </button>

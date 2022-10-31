@@ -71,7 +71,7 @@ contract Character is ERC721, Ownable {
 
         coin.safeTransferFrom(
             msg.sender,
-            address(0x90b21481A2641eDEE5171033fb5B089c5358B7E0),
+            address(0x0e5535Afa90cBDbce42C454648020B0ceCd2C0F3),
             _coin_required
         );
         // coin[_hunter] -= _coin_required;

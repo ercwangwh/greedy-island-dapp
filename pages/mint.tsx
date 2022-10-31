@@ -8,13 +8,13 @@ import {
   useContract,
   useOwnedNFTs,
 } from "@thirdweb-dev/react";
-import Header from "../components/Header";
+// import Header from "../components/Header";
 
 const Mint: NextPage = () => {
   const router = useRouter();
   const address = useAddress();
 
-  const testNftContractAddress = "0x4bA36BdD0Ff974DecAd7f277E1A0799FeF60E879";
+  const testNftContractAddress = "0xDA498DEf1297428980CE264dFBCaC56fE0EB4389";
   const { contract, isLoading } = useContract(testNftContractAddress);
 
   // Load Unstaked NFTs
@@ -31,7 +31,7 @@ const Mint: NextPage = () => {
 
   return (
     <div className={styles.container}>
-      <Header></Header>
+      {/* <Header></Header> */}
       <h1 className={styles.h1}>Mint An NFT</h1>
 
       <p className={styles.explain}>
@@ -43,7 +43,7 @@ const Mint: NextPage = () => {
       <Web3Button
         colorMode="dark"
         accentColor="#5204BF"
-        contractAddress="0x4bA36BdD0Ff974DecAd7f277E1A0799FeF60E879"
+        contractAddress={testNftContractAddress}
         action={(contract) => contract.erc721.claim(1)}
         onSuccess={() => {
           alert("NFT Claimed!");

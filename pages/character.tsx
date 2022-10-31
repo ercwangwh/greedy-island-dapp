@@ -3,15 +3,13 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
 import { useAddress, useContract, useContractRead } from "@thirdweb-dev/react";
-import Header from "../components/Header";
-import { useState } from "react";
 
 const Character: NextPage = () => {
   const router = useRouter();
   const address = useAddress();
   //   const [info, setInfo] = useState<any>([]);
 
-  const characterContractAddress = "0x70455B3C7c4DD4927605fD06C4Df12D80Fe8f727";
+  const characterContractAddress = "0x9f01B1954fa2B7Eb423e49332196DB2c3c8DBc2f";
   //   const skillsContractAddress = "0xc8b198A641F0fa6A32600E49129d9F713249De24";
   const { contract: characterContract } = useContract(characterContractAddress);
   //   const { contract: skillsContract } = useContract(skillsContractAddress);
@@ -42,7 +40,7 @@ const Character: NextPage = () => {
 
   return (
     <div className={styles.container}>
-      <Header></Header>
+      {/* <Header></Header> */}
       <h1 className={styles.h1}>Mint Character</h1>
 
       <p className={styles.explain}>

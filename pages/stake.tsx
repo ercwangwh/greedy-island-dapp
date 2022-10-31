@@ -6,7 +6,8 @@ import {
   useContract,
   useBalance,
   useContractRead,
-  Web3Button,
+  useWalletConnect,
+  useSigner,
 } from "@thirdweb-dev/react";
 import { BigNumber, ethers } from "ethers";
 import type { NextPage } from "next";
@@ -14,6 +15,7 @@ import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 
 import Skill from "../components/Skill";
+// import { sign } from "crypto";
 // import { useState } from "react";
 
 const Stake: NextPage = () => {
@@ -23,8 +25,9 @@ const Stake: NextPage = () => {
   const characterContractAddress = "0x9f01B1954fa2B7Eb423e49332196DB2c3c8DBc2f";
   // Wallet Connection Hooks
   const address = useAddress();
+  const signer = useSigner();
   // const connectWithMetamask = useMetamask();
-
+  console.log(signer);
   // Contract Hooks
   const { contract: nftDropContract } = useContract(
     nftDropContractAddress,

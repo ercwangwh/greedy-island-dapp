@@ -15,7 +15,14 @@ function Header() {
       </button>
       <h1>Greedy Island - v0.1.0</h1>
       <div className={styles.right}>
-        <ConnectWallet colorMode="dark"></ConnectWallet>
+        <ConnectWallet
+          colorMode="dark"
+          auth={{
+            loginOptional: false,
+          }}
+        >
+          {" "}
+        </ConnectWallet>
       </div>
     </div>
   );

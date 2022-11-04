@@ -1,26 +1,13 @@
-## Getting Started
+This is an [NFT Staking Game](https://greedy-island-dapp.vercel.app) built with <strong>NextJs Thirdweb-SDK Typescript</strong> for frontend and <strong>Solidity</strong> for backend. Using <strong>Thirdweb Deploy</strong> to deploy contracts.
 
-Create a project using this example:
+## Mechanism 
 
-```bash
-npx thirdweb create --template next-typescript-starter
-```
+Core: Stake the NFT to earn coins  
+Metagame: You can use your coins to upgrade character skills, the higher level skill can boost multiple coins
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## How to Play 
 
-On `pages/_app.tsx`, you'll find our `ThirdwebProvider` wrapping your app to set up our React SDK.
-
-## Learn More
-
-To learn more about thirdweb and Next.js, take a look at the following resources:
-
-- [thirdweb React Documentation](https://docs.thirdweb.com/react) - learn about our React SDK.
-- [thirdweb TypeScript Documentation](https://docs.thirdweb.com/typescript) - learn about our JavaScript/TypeScript SDK.
-- [thirdweb Portal](https://docs.thirdweb.com) - check our guides and development resources.
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-
-You can check out [the thirdweb GitHub organization](https://github.com/thirdweb-dev) - your feedback and contributions are welcome!
-
-## Join our Discord!
-
-For any questions, suggestions, join our discord at [https://discord.gg/thirdweb](https://discord.gg/thirdweb).
+1. Mint your character
+2. Mint the test NFT through NFT drop faucet
+3. Stake the NFT to earn coins
+4. Use the coins to update your skills which can boost your coins reward
